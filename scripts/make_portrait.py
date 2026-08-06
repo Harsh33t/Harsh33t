@@ -37,24 +37,24 @@ import numpy as np
 from PIL import Image
 from rembg import remove
 
-RAMP = " .`'-~:;+=!*#$@%W"    # 16-level density ramp from subtle glow to peak brightness
-COLS = 125                 # Ultra-high resolution 125 column grid
-CLAHE_CLIP = 3.5           # High local contrast for glowing edges & muscle contours
-GAMMA = 1.1                # Ramp mapping exponent
+RAMP = " .`'-~:;+=!*#$@%W"    # 16-level density ramp for micro-typography
+COLS = 180                 # Ultra-dense 180-column micro-typography grid
+CLAHE_CLIP = 3.5           # High local contrast for sharp face & aura linework
+GAMMA = 1.0                # Ramp mapping exponent
 CROP_BOTTOM = 0.0          # fraction to trim off bottom
 ROW_RATIO = 0.48           # monospace aspect ratio
 
 FG_LIGHT = "#6e7681"       # readable on GitHub light
 FG_DARK = "#c9d1d9"        # dark mode ink
-CHAR_W = 7.74              # 0.600 em at FONT_SIZE
-FONT_SIZE = 12.9
-LINE_H = 15
-ROW_DELAY = 0.04           # fast stagger for 80+ rows
+CHAR_W = 5.10              # 0.600 em at FONT_SIZE 8.5
+FONT_SIZE = 8.5
+LINE_H = 10.0
+ROW_DELAY = 0.025          # fast stagger for 120+ rows
 FAMILY = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
 
 
 def prep(path, crop=None):
-    """Enhance glowing edges and threshold dark background to 0."""
+    """Sharpen glowing linework and threshold dark background to 0."""
     src = Image.open(path).convert("RGBA")
     if crop:
         src = src.crop(crop)
@@ -62,12 +62,14 @@ def prep(path, crop=None):
     # Convert to grayscale
     gray = np.array(src.convert("L"))
 
-    # Apply bilateral filter to sharpen linework while preserving glow gradients
-    gray = cv2.bilateralFilter(gray, 5, 35, 35)
+    # Unsharp mask sharpening for ultra-crisp facial & hair linework
+    gaussian = cv2.GaussianBlur(gray, (0, 0), 2.0)
+    gray = cv2.addWeighted(gray, 1.5, gaussian, -0.5, 0)
+
     gray = cv2.createCLAHE(clipLimit=CLAHE_CLIP, tileGridSize=(8, 8)).apply(gray)
     
-    # Threshold background noise: pixels below 30 become pure 0 (empty space)
-    gray[gray < 30] = 0
+    # Threshold background noise: pixels below 25 become pure 0 (empty space)
+    gray[gray < 25] = 0
     return Image.fromarray(gray)
 
 
@@ -126,10 +128,10 @@ def build_svg(lines, cols=COLS):
                  f'begin="{begin}" dur="{ROW_DELAY}s" fill="freeze"/>'
                  f'</rect></clipPath>')
         p.append(f'<g clip-path="url(#c{i})"><text xml:space="preserve" '
-                 f'x="{pad}" y="{y + 11.2:.1f}" class="a" '
+                 f'x="{pad}" y="{y + 7.4:.1f}" class="a" '
                  f'font-size="{FONT_SIZE}">{safe}</text></g>')
         # the cursor: a small block riding the wipe edge, gone once the row lands
-        p.append(f'<rect y="{y + 1}" width="6" height="12" class="a" '
+        p.append(f'<rect y="{y + 1}" width="4" height="8" class="a" '
                  f'opacity="0">'
                  f'<animate attributeName="x" from="{pad}" to="{pad + w:.1f}" '
                  f'begin="{begin}" dur="{ROW_DELAY}s" fill="freeze"/>'
