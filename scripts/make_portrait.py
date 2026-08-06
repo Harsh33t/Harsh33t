@@ -37,25 +37,25 @@ import numpy as np
 from PIL import Image
 from rembg import remove
 
-RAMP = " .`:-=+*cs#%@"     # bright/sparse -> dark/dense; leading space = blank
-COLS = 90                  # below ~88 the face muddies; far above it dominates
-CLAHE_CLIP = 3.0           # higher amplifies skin texture into noise
+RAMP = " .'\":;i+o*x%#@"     # 14 fine-grained detail levels for anime linework
+COLS = 115                 # High resolution character grid
+CLAHE_CLIP = 2.5           # Local contrast clip limit
 GAMMA = 1.0                # ramp mapping exponent
-CURVE = 1.7                # the darkening curve — the difference-maker
-CROP_BOTTOM = 0.0          # fraction to trim off the bottom (torso, chair)
-ROW_RATIO = 0.48           # monospace cells are about twice as tall as wide
+CURVE = 1.3                # darkening curve tuned for dark background contrast
+CROP_BOTTOM = 0.0          # fraction to trim off the bottom
+ROW_RATIO = 0.48           # monospace cell aspect ratio
 
 FG_LIGHT = "#6e7681"       # readable on GitHub light — the portrait's grey
 FG_DARK = "#c9d1d9"        # and its dark-mode step
-CHAR_W = 7.74              # 0.600 em at FONT_SIZE — keep these in step
+CHAR_W = 7.74              # 0.600 em at FONT_SIZE
 FONT_SIZE = 12.9
 LINE_H = 15
-ROW_DELAY = 0.09           # per-row stagger, seconds
+ROW_DELAY = 0.05           # faster stagger for high-row density
 FAMILY = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
 
 
 def prep(path, crop=None):
-    """Cut out the background, even the local contrast, then darken."""
+    """Cut out the background, retain sharp linework, then map contrast."""
     src = Image.open(path).convert("RGBA")
     if crop:
         src = src.crop(crop)
@@ -63,16 +63,15 @@ def prep(path, crop=None):
     cut = remove(src)
     alpha = np.array(cut.split()[-1])
 
-    # Composite onto white so everything outside the subject maps to the blank
-    # end of the ramp. Skip this and the background fills with @ and %.
+    # Composite onto white so background maps to space
     white = Image.new("RGBA", cut.size, (255, 255, 255, 255))
     gray = np.array(Image.alpha_composite(white, cut).convert("L"))
 
-    gray = cv2.bilateralFilter(gray, 11, 50, 50)      # smooth skin, keep edges
+    gray = cv2.bilateralFilter(gray, 5, 25, 25)       # Preserve sharp edges & aura
     gray = cv2.createCLAHE(clipLimit=CLAHE_CLIP,
                            tileGridSize=(8, 8)).apply(gray)
     gray = (255.0 * (gray / 255.0) ** CURVE).astype("uint8")
-    gray[alpha < 20] = 255                            # force the matte to white
+    gray[alpha < 20] = 255                            # force matte to white
     return Image.fromarray(gray)
 
 
