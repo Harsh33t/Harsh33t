@@ -21,7 +21,7 @@ import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-FONT = os.path.join(HERE, "fonts", "jbmono-ramp.woff2")
+FONT = os.path.join(HERE, "fonts", "jbmono-400.woff2")
 FAMILY = ("JBMono,ui-monospace,SFMono-Regular,Menlo,Consolas,"
           "&apos;Liberation Mono&apos;,monospace")
 
