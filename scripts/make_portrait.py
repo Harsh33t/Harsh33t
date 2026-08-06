@@ -37,24 +37,24 @@ import numpy as np
 from PIL import Image
 from rembg import remove
 
-RAMP = " .`'-~:;+=!*#$@%W"    # 16-level density ramp for micro-typography
-COLS = 180                 # Ultra-dense 180-column micro-typography grid
-CLAHE_CLIP = 3.5           # High local contrast for sharp face & aura linework
-GAMMA = 1.0                # Ramp mapping exponent
+RAMP = " .'`^\":;Il!i~+_-?][1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW8%B@$"  # 70-level photorealistic ramp
+COLS = 260                 # Ultra-dense 260-column photorealistic grid
+CLAHE_CLIP = 4.0           # Extreme contrast for photorealistic edge & muscle detail
+GAMMA = 1.0                # Linear intensity mapping
 CROP_BOTTOM = 0.0          # fraction to trim off bottom
 ROW_RATIO = 0.48           # monospace aspect ratio
 
 FG_LIGHT = "#6e7681"       # readable on GitHub light
 FG_DARK = "#c9d1d9"        # dark mode ink
-CHAR_W = 5.10              # 0.600 em at FONT_SIZE 8.5
-FONT_SIZE = 8.5
-LINE_H = 10.0
-ROW_DELAY = 0.025          # fast stagger for 120+ rows
+CHAR_W = 3.60              # 0.600 em at FONT_SIZE 6.0
+FONT_SIZE = 6.0
+LINE_H = 7.0
+ROW_DELAY = 0.015          # fast stagger for 180+ rows
 FAMILY = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
 
 
 def prep(path, crop=None):
-    """Sharpen glowing linework and threshold dark background to 0."""
+    """Unsharp mask sharpening + CLAHE contrast for photorealistic ASCII."""
     src = Image.open(path).convert("RGBA")
     if crop:
         src = src.crop(crop)
@@ -62,14 +62,14 @@ def prep(path, crop=None):
     # Convert to grayscale
     gray = np.array(src.convert("L"))
 
-    # Unsharp mask sharpening for ultra-crisp facial & hair linework
-    gaussian = cv2.GaussianBlur(gray, (0, 0), 2.0)
-    gray = cv2.addWeighted(gray, 1.5, gaussian, -0.5, 0)
+    # High-pass unsharp mask sharpening for facial features & hair linework
+    gaussian = cv2.GaussianBlur(gray, (0, 0), 1.5)
+    gray = cv2.addWeighted(gray, 1.8, gaussian, -0.8, 0)
 
     gray = cv2.createCLAHE(clipLimit=CLAHE_CLIP, tileGridSize=(8, 8)).apply(gray)
     
-    # Threshold background noise: pixels below 25 become pure 0 (empty space)
-    gray[gray < 25] = 0
+    # Threshold background noise: pixels below 20 become pure 0 (empty space)
+    gray[gray < 20] = 0
     return Image.fromarray(gray)
 
 
@@ -120,7 +120,7 @@ def build_svg(lines, cols=COLS):
         end = f"{(i + 1) * ROW_DELAY:.2f}s"
         w = max(len(line), 1) * CHAR_W
         safe = (line.replace("&", "&amp;").replace("<", "&lt;")
-                    .replace(">", "&gt;"))
+                    .replace(">", "&gt;").replace('"', "&quot;"))
 
         p.append(f'<clipPath id="c{i}"><rect x="{pad}" y="{y}" '
                  f'height="{LINE_H}" width="0">'
@@ -128,10 +128,10 @@ def build_svg(lines, cols=COLS):
                  f'begin="{begin}" dur="{ROW_DELAY}s" fill="freeze"/>'
                  f'</rect></clipPath>')
         p.append(f'<g clip-path="url(#c{i})"><text xml:space="preserve" '
-                 f'x="{pad}" y="{y + 7.4:.1f}" class="a" '
+                 f'x="{pad}" y="{y + 5.2:.1f}" class="a" '
                  f'font-size="{FONT_SIZE}">{safe}</text></g>')
-        # the cursor: a small block riding the wipe edge, gone once the row lands
-        p.append(f'<rect y="{y + 1}" width="4" height="8" class="a" '
+        # the cursor: a small block riding the wipe edge
+        p.append(f'<rect y="{y + 1}" width="3" height="6" class="a" '
                  f'opacity="0">'
                  f'<animate attributeName="x" from="{pad}" to="{pad + w:.1f}" '
                  f'begin="{begin}" dur="{ROW_DELAY}s" fill="freeze"/>'
