@@ -37,41 +37,37 @@ import numpy as np
 from PIL import Image
 from rembg import remove
 
-RAMP = " .'\":;i+o*x%#@"     # 14 fine-grained detail levels for anime linework
-COLS = 115                 # High resolution character grid
-CLAHE_CLIP = 2.5           # Local contrast clip limit
-GAMMA = 1.0                # ramp mapping exponent
-CURVE = 1.3                # darkening curve tuned for dark background contrast
-CROP_BOTTOM = 0.0          # fraction to trim off the bottom
-ROW_RATIO = 0.48           # monospace cell aspect ratio
+RAMP = " .`'-~:;+=!*#$@%W"    # 16-level density ramp from subtle glow to peak brightness
+COLS = 125                 # Ultra-high resolution 125 column grid
+CLAHE_CLIP = 3.5           # High local contrast for glowing edges & muscle contours
+GAMMA = 1.1                # Ramp mapping exponent
+CROP_BOTTOM = 0.0          # fraction to trim off bottom
+ROW_RATIO = 0.48           # monospace aspect ratio
 
-FG_LIGHT = "#6e7681"       # readable on GitHub light — the portrait's grey
-FG_DARK = "#c9d1d9"        # and its dark-mode step
+FG_LIGHT = "#6e7681"       # readable on GitHub light
+FG_DARK = "#c9d1d9"        # dark mode ink
 CHAR_W = 7.74              # 0.600 em at FONT_SIZE
 FONT_SIZE = 12.9
 LINE_H = 15
-ROW_DELAY = 0.05           # faster stagger for high-row density
+ROW_DELAY = 0.04           # fast stagger for 80+ rows
 FAMILY = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
 
 
 def prep(path, crop=None):
-    """Cut out the background, retain sharp linework, then map contrast."""
+    """Enhance glowing edges and threshold dark background to 0."""
     src = Image.open(path).convert("RGBA")
     if crop:
         src = src.crop(crop)
 
-    cut = remove(src)
-    alpha = np.array(cut.split()[-1])
+    # Convert to grayscale
+    gray = np.array(src.convert("L"))
 
-    # Composite onto white so background maps to space
-    white = Image.new("RGBA", cut.size, (255, 255, 255, 255))
-    gray = np.array(Image.alpha_composite(white, cut).convert("L"))
-
-    gray = cv2.bilateralFilter(gray, 5, 25, 25)       # Preserve sharp edges & aura
-    gray = cv2.createCLAHE(clipLimit=CLAHE_CLIP,
-                           tileGridSize=(8, 8)).apply(gray)
-    gray = (255.0 * (gray / 255.0) ** CURVE).astype("uint8")
-    gray[alpha < 20] = 255                            # force matte to white
+    # Apply bilateral filter to sharpen linework while preserving glow gradients
+    gray = cv2.bilateralFilter(gray, 5, 35, 35)
+    gray = cv2.createCLAHE(clipLimit=CLAHE_CLIP, tileGridSize=(8, 8)).apply(gray)
+    
+    # Threshold background noise: pixels below 30 become pure 0 (empty space)
+    gray[gray < 30] = 0
     return Image.fromarray(gray)
 
 
@@ -88,10 +84,15 @@ def to_lines(img, cols=COLS, gamma=GAMMA):
 
     out = []
     for r in range(rows):
-        out.append("".join(
-            RAMP[min(n - 1, int((1 - px[r * cols + c] / 255.0) ** gamma * n))]
-            for c in range(cols)
-        ).rstrip())
+        row_chars = []
+        for c in range(cols):
+            val = px[r * cols + c]
+            if val == 0:
+                row_chars.append(" ")
+            else:
+                idx = min(n - 1, max(1, int((val / 255.0) ** gamma * (n - 1)) + 1))
+                row_chars.append(RAMP[idx])
+        out.append("".join(row_chars).rstrip())
 
     while out and not out[0].strip():
         out.pop(0)

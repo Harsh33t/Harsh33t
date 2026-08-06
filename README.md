@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./ascii.svg" width="560" alt="Harsheet Dwivedi - Goku ASCII Portrait"/>
+<img src="./ascii.svg" width="620" alt="Harsheet Dwivedi - Goku ASCII Portrait"/>
 
 <br><br>
 
