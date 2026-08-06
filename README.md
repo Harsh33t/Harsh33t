@@ -71,6 +71,10 @@ Multi-agent startup evaluator simulating a VC investment committee debate with 3
 
 <div align="center">
 
+<img src="./timeline.svg?v=real-streak-12" width="620" alt="30-day activity timeline"/>
+
+<br>
+
 <img src="./streak.svg?v=real-streak-12" width="620" alt="Current and longest streak"/>
 
 <br>

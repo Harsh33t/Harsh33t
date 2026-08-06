@@ -192,7 +192,7 @@ def summarise(user):
         total=cal["totalContributions"],
         active=sum(1 for d in days if d["contributionCount"] > 0),
         best_week=max(weekly) if weekly else 0,
-        weekly=weekly, weeks=weeks,
+        weekly=weekly, weeks=weeks, days=days,
         current=cur, longest=best,
         by_size=by_size, by_repo=by_repo)
 
@@ -250,6 +250,75 @@ def hbar(x, y, w, h, cls="d-f", r=3.0):
             f'Q{x + w:.1f} {y:.1f} {x + w:.1f} {y + r:.1f}'
             f'V{y + h - r:.1f}Q{x + w:.1f} {y + h:.1f} {x + w - r:.1f} {y + h:.1f}'
             f'H{x:.1f}Z" class="{cls}"/>')
+
+
+def hbar_vert(x, y, w, h, r=2.0):
+    """Vertical bar: rounded top end, square baseline."""
+    if h <= 0.6:
+        return ""
+    r = min(r, w / 2.0, h)
+    return (f'<path d="M{x:.1f} {y + h:.1f}V{y + r:.1f}'
+            f'Q{x:.1f} {y:.1f} {x + r:.1f} {y:.1f}'
+            f'H{x + w - r:.1f}Q{x + w:.1f} {y:.1f} {x + w:.1f} {y + r:.1f}'
+            f'V{y + h:.1f}Z" class="d-f"/>')
+
+
+def draw_timeline(s):
+    """30-day daily contribution timeline bar chart."""
+    H = 145
+    days = s.get("days", [])
+    last30 = days[-30:] if len(days) >= 30 else days
+    peak = max((d["contributionCount"] for d in last30), default=1) or 1
+    total_30 = sum(d["contributionCount"] for d in last30)
+    active_30 = sum(1 for d in last30 if d["contributionCount"] > 0)
+
+    p = [head(WIDTH, H)]
+    p.append(f'<g opacity="0">{fade(0.10)}'
+             + label(LEFT, 18, "30-DAY ACTIVITY TIMELINE", 9, "m-f", extra=' letter-spacing="1.3"')
+             + label(LEFT, 34, f"{total_30} contributions across {active_30} active days in the last 30 days", 11)
+             + '</g>')
+
+    base_y = H - 22
+    top_y = 52
+    span = base_y - top_y
+    chart_w = WIDTH - LEFT * 2
+    step = chart_w / max(len(last30), 1)
+    bar_w = max(step * 0.65, 3.0)
+
+    cid = "rt30"
+    clip, cursor = wipe(cid, LEFT, top_y - 12, chart_w, span + 20, 0.35, REVEAL)
+    p.append(clip)
+
+    for i, d in enumerate(last30):
+        cnt = d["contributionCount"]
+        cx = LEFT + i * step + step / 2
+        bx = cx - bar_w / 2
+        
+        if cnt > 0:
+            bh = max((cnt / peak) * span, 4.0)
+            by = base_y - bh
+            p.append(f'<g clip-path="url(#{cid})">'
+                     + hbar_vert(bx, by, bar_w, bh)
+                     + '</g>')
+            # Count label above bar for active days
+            p.append(f'<g opacity="0">{fade(0.40 + i * 0.02)}'
+                     + label(cx, by - 4, str(cnt), 8, "e-f", "middle")
+                     + '</g>')
+        else:
+            # Subtle baseline marker for empty days
+            p.append(f'<circle cx="{cx:.1f}" cy="{base_y:.1f}" r="1.2" class="w"/>')
+
+        # Date label below baseline every 5 days or first/last
+        if i % 5 == 0 or i == len(last30) - 1:
+            d_obj = date.fromisoformat(d["date"])
+            date_lbl = f"{MON[d_obj.month - 1]} {d_obj.day}"
+            p.append(f'<g opacity="0">{fade(0.20 + i * 0.02)}'
+                     + label(cx, base_y + 14, date_lbl, 8, "m-f", "middle")
+                     + '</g>')
+
+    p.append(cursor)
+    p.append("</svg>")
+    return "".join(p)
 
 
 def draw_stats(s):
@@ -546,7 +615,8 @@ def main():
 
     s = summarise(user_data)
     files = {"stats.svg": draw_stats(s), "streak.svg": draw_streak(s),
-             "langs.svg": draw_langs(s), "year.svg": draw_year(s)}
+             "langs.svg": draw_langs(s), "year.svg": draw_year(s),
+             "timeline.svg": draw_timeline(s)}
     for word in ("about", "stack", "projects", "stats", "about this page"):
         files[f"hd-{word.replace(' ', '-')}.svg"] = draw_heading(word)
 
