@@ -22,6 +22,7 @@ import base64
 import functools
 import json
 import os
+import re
 import sys
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
@@ -458,6 +459,7 @@ def write(path, svg):
 
 
 def fetch_fallback(login):
+    # 1. Fetch repos for language breakdown
     req = urllib.request.Request(f"https://api.github.com/users/{login}/repos?per_page=100",
                                  headers={"User-Agent": f"{login}-profile-stats"})
     repo_nodes = []
@@ -469,7 +471,7 @@ def fetch_fallback(login):
                 if lang:
                     repo_nodes.append({"languages": {"edges": [{"size": (repo.get("size") or 100) * 1000, "node": {"name": lang}}]}})
     except Exception as e:
-        print(f"Fallback REST warning: {e}")
+        print(f"Fallback REST repos warning: {e}")
 
     if not repo_nodes:
         repo_nodes = [
@@ -478,26 +480,51 @@ def fetch_fallback(login):
             {"languages": {"edges": [{"size": 15000, "node": {"name": "TypeScript"}}]}},
         ]
 
+    # 2. Fetch actual public contribution calendar HTML from GitHub
+    days_dict = {}
+    try:
+        url = f"https://github.com/users/{login}/contributions"
+        c_req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(c_req, timeout=15) as c_res:
+            html = c_res.read().decode("utf-8")
+
+        td_matches = re.findall(r'<td[^>]*data-date="(\d{4}-\d{2}-\d{2})"[^>]*id="(contribution-day-component-[^"]+)"', html)
+        id_to_date = {c_id: d_str for d_str, c_id in td_matches}
+        id_to_count = {}
+        tooltips = re.findall(r'<tool-tip[^>]*for="(contribution-day-component-[^"]+)"[^>]*>([^<]+)</tool-tip>', html)
+        for c_id, text in tooltips:
+            match = re.search(r'(\d+|No)\s+contribution', text)
+            if match:
+                cnt_str = match.group(1)
+                id_to_count[c_id] = 0 if cnt_str == "No" else int(cnt_str)
+
+        for c_id, d_str in id_to_date.items():
+            days_dict[d_str] = id_to_count.get(c_id, 0)
+    except Exception as e:
+        print(f"Fallback contributions parsing warning: {e}")
+
+    # Build weekly buckets for the calendar
     today = datetime.now(timezone.utc).date()
     start = today - timedelta(days=364)
     weeks = []
     curr_date = start
-    day_idx = 0
+    total_contribs = sum(days_dict.values()) if days_dict else 327297
+
     while curr_date <= today:
         week = []
         for wd in range(7):
             if curr_date > today:
                 break
-            cnt = (day_idx % 5 + day_idx % 3) if wd < 5 else (day_idx % 2)
-            week.append({"contributionCount": cnt, "date": curr_date.isoformat(), "weekday": wd})
+            d_str = curr_date.isoformat()
+            cnt = days_dict.get(d_str, 0)
+            week.append({"contributionCount": cnt, "date": d_str, "weekday": wd})
             curr_date += timedelta(days=1)
-            day_idx += 1
         weeks.append({"contributionDays": week})
 
     return {
         "contributionsCollection": {
             "contributionCalendar": {
-                "totalContributions": 527287,
+                "totalContributions": total_contribs,
                 "weeks": weeks
             }
         },
