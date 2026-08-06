@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./ascii.svg" width="620" alt="Harsheet Dwivedi - Goku ASCII Portrait"/>
+<img src="./ascii.svg?v=photorealistic-260" width="620" alt="Harsheet Dwivedi - Goku ASCII Portrait"/>
 
 <br><br>
 
@@ -8,7 +8,7 @@
 <h3>AI/ML Engineer & Open Source Contributor</h3>
 <p>B.Tech Computer Science & Engineering @ BML Munjal University (2025–2029)</p>
 
-<img src="./stats.svg" width="620" alt="Contributions in the last year"/>
+<img src="./stats.svg?v=2" width="620" alt="Contributions in the last year"/>
 
 <br>
 
@@ -20,7 +20,7 @@
 
 <br>
 
-<img src="./hd-about.svg" width="620" alt="about"/>
+<img src="./hd-about.svg?v=2" width="620" alt="about"/>
 
 > Seeking an **AI/ML Internship** to apply skills in Python, machine learning, cloud-native backend, and LLM-based multi-agent systems in a real-world product environment.
 
@@ -30,7 +30,7 @@
 
 <br>
 
-<img src="./hd-stack.svg" width="620" alt="stack"/>
+<img src="./hd-stack.svg?v=2" width="620" alt="stack"/>
 
 ```
 Languages  : Python · Java · JavaScript · Golang · SQL
@@ -45,7 +45,7 @@ Tools      : Docker · PostgreSQL · GitHub Actions · Raspberry Pi · Linux · 
 
 <br>
 
-<img src="./hd-projects.svg" width="620" alt="projects"/>
+<img src="./hd-projects.svg?v=2" width="620" alt="projects"/>
 
 **[JanSamvaad — ResolveOS](https://github.com/Harsh33t)** &nbsp;·&nbsp; <samp>python, gemini 2.5 flash, twilio, postgresql</samp><br>
 Voice-first municipal complaint system for India's 300M+ citizens (no internet required). Transcribes Hindi/English voice via Gemini 2.5 Flash, tracks SLAs, and generates ward heatmaps. **Ranked 39 / 26,000+ at India Innovates 2026.**
@@ -67,18 +67,18 @@ Multi-agent startup evaluator simulating a VC investment committee debate with 3
 
 <br>
 
-<img src="./hd-stats.svg" width="620" alt="stats"/>
+<img src="./hd-stats.svg?v=2" width="620" alt="stats"/>
 
 <div align="center">
 
-<img src="./streak.svg" width="620" alt="Current and longest streak"/>
+<img src="./streak.svg?v=2" width="620" alt="Current and longest streak"/>
 
 <br>
 
-<img src="./langs.svg" width="620" alt="Top languages by bytes and by repo"/>
+<img src="./langs.svg?v=2" width="620" alt="Top languages by bytes and by repo"/>
 
 <br>
 
-<img src="./year.svg" width="620" alt="The last year, one character per day"/>
+<img src="./year.svg?v=2" width="620" alt="The last year, one character per day"/>
 
 </div>
