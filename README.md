@@ -1,13 +1,19 @@
 <div align="center">
 
-<img src="./ascii.svg" width="460" alt="Harsheet Dwivedi"/>
+<img src="./ascii.svg" width="460" alt="Harsheet Dwivedi - Goku ASCII Portrait"/>
+
+<br><br>
 
 <img src="./stats.svg" width="620" alt="Contributions in the last year"/>
+
+<br>
 
 [LinkedIn](https://www.linkedin.com/in/harsheet-dwivedi/) &nbsp;·&nbsp;
 [Email](mailto:dwivedi.harsheet1@gmail.com)
 
 </div>
+
+<br>
 
 <img src="./hd-about.svg" width="620" alt="about"/>
 
@@ -16,14 +22,26 @@
 
 I build fast, test on real users, and launch projects that solve real problems.
 
+<br>
+
 <img src="./hd-stack.svg" width="620" alt="stack"/>
 
 <samp>python &nbsp; typescript &nbsp; javascript &nbsp; react &nbsp; node &nbsp; fastapi &nbsp; postgres &nbsp; docker &nbsp; git &nbsp; linux</samp>
+
+<br>
 
 <img src="./hd-projects.svg" width="620" alt="projects"/>
 
 **[DOAD](https://doad.in)** &nbsp;·&nbsp; <samp>growth, advertising, tech</samp><br>
 A modern advertising and media agency helping brands grow.
+
+**[Fine-Tuning-LLM-using-QUANTIZATION](https://github.com/Harsh33t/Fine-Tuning-LLM-using-QUANTIZATION)** &nbsp;·&nbsp; <samp>python, machine-learning</samp><br>
+Quantization and fine-tuning pipeline for large language models.
+
+**[GnoMIND](https://github.com/Harsh33t/GnoMIND)** &nbsp;·&nbsp; <samp>python, ai</samp><br>
+Autonomous AI intelligence and research agent.
+
+<br>
 
 <img src="./hd-stats.svg" width="620" alt="stats"/>
 
@@ -31,11 +49,17 @@ A modern advertising and media agency helping brands grow.
 
 <img src="./streak.svg" width="620" alt="Current and longest streak"/>
 
+<br>
+
 <img src="./langs.svg" width="620" alt="Top languages by bytes and by repo"/>
+
+<br>
 
 <img src="./year.svg" width="620" alt="The last year, one character per day"/>
 
 </div>
+
+<br>
 
 <img src="./hd-about-this-page.svg" width="620" alt="about this page"/>
 
