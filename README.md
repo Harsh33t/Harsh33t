@@ -1,88 +1,52 @@
-<div align="center">
+<h1 align="center">Harsheet Dwivedi</h1>
 
-<img src="./ascii.svg?v=real-260" width="620" alt="Harsheet Dwivedi - Goku ASCII Portrait"/>
+<p align="center">
+  <strong>AI/ML Engineer · Open-Source Contributor</strong><br>
+  B.Tech in Computer Science & Engineering · BML Munjal University, 2025–2029<br>
+  Gurgaon, India
+</p>
 
-<br><br>
+<p align="center">
+  <a href="https://www.linkedin.com/in/harsheet-dwivedi-5a192a291/"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge"></a>
+  <a href="mailto:dwivedi.harsheet1@gmail.com"><img alt="Email Harsheet" src="https://img.shields.io/badge/Email-334155?style=for-the-badge"></a>
+</p>
 
-<h1>Harsheet Dwivedi</h1>
-<h3>AI/ML Engineer & Open Source Contributor</h3>
-<p>B.Tech Computer Science & Engineering @ BML Munjal University (2025–2029)</p>
+<p align="center">
+  <a href="#featured-projects">Projects</a> ·
+  <a href="#open-source">Open source</a> ·
+  <a href="#technical-stack">Technical stack</a>
+</p>
 
-<img src="./stats.svg?v=real-streak-12" width="620" alt="Contributions in the last year"/>
+---
 
-<br>
+I build Python applications that bring machine learning into products, from offline computer vision on Raspberry Pi to multi-agent systems backed by FastAPI. I’m looking for an **AI/ML internship** where I can work on applied ML and the backend that makes it usable.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/harsheet-dwivedi-5a192a291/)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:dwivedi.harsheet1@gmail.com)
-[![Location](https://img.shields.io/badge/Gurgaon-India-107C41?style=for-the-badge&logo=google-maps&logoColor=white)](#)
+> **Ranked 39th out of 26,000+ participants** at India Innovates 2026 with JanSamvaad, a voice-first municipal grievance platform.
 
-</div>
+## Featured projects
 
-<br>
+| Project | What it does | Stack |
+| :--- | :--- | :--- |
+| **[JanSamvaad · ResolveOS](https://github.com/akshatg-721/JanSamvaad-ResolveOS)** | Lets residents file municipal complaints by phone in Hindi or English. The system classifies reports, tracks response deadlines, and maps complaints by ward. [Live demo](https://jan-samvaad-resolve-os.vercel.app) | Python, Gemini 2.5 Flash, Twilio, PostgreSQL |
+| **[OPTICAP](https://github.com/Harsh33t/OPTICAP)** | An offline assistive wearable that narrates objects through bone conduction, identifies the direction of sounds, and translates Indian Sign Language gestures into speech. | YOLOv8 Nano, YAMNet, MediaPipe, Raspberry Pi |
+| **[PortAI](https://github.com/Harsh33t/PortAI)** | A financial research and paper-trading platform that uses 15+ investor personas to analyze Indian and US equities and crypto. | FastAPI, Next.js, multi-agent LLMs |
 
-<img src="./hd-about.svg?v=real-streak-12" width="620" alt="about"/>
+## Open source
 
-> Seeking an **AI/ML Internship** to apply skills in Python, machine learning, cloud-native backend, and LLM-based multi-agent systems in a real-world product environment.
+- **[Meshery](https://github.com/meshery/meshery) · CNCF / Layer5** — contributed AI and backend features to the cloud-native management platform.
+- **GirlScript Summer of Code** — contributor in 2025 and 2026.
+- **Hacktoberfest** — contributor in 2025.
 
-- 🏆 **Rank 39 / 26,000+** participants at India Innovates 2026 — FiSTA National Hackathon (*JanSamvaad* project).
-- 🌐 **CNCF / Layer5 Contributor**: Built AI & backend features for Meshery, an open-source cloud-native platform.
-- 🚀 **GSSoC 2025 & 2026** & **Hacktoberfest 2025** Open Source Contributor.
+## Technical stack
 
-<br>
+| Area | Tools |
+| :--- | :--- |
+| **Languages** | Python, Java, JavaScript, Go, SQL |
+| **Machine learning** | PyTorch, YOLOv8, OpenCV, PennyLane, NumPy, pandas, Matplotlib, LLMs |
+| **APIs and web** | FastAPI, React, Next.js, Streamlit, HTML/CSS |
+| **Infrastructure and tooling** | PostgreSQL, Docker, GitHub Actions, Linux, Git, Raspberry Pi |
 
-<img src="./hd-stack.svg?v=real-streak-12" width="620" alt="stack"/>
+## Certifications
 
-```
-Languages  : Python · Java · JavaScript · Golang · SQL
-ML / AI    : PyTorch · LLMs · YOLOv8 · PennyLane · NumPy · Pandas · Matplotlib · OpenCV
-Web & API  : FastAPI · React · Next.js · Streamlit · HTML/CSS
-Tools      : Docker · PostgreSQL · GitHub Actions · Raspberry Pi · Linux · Git
-```
-
-**Certifications:**
-- 📜 **Machine Learning Specialization** — *DeepLearning.AI & Coursera* (Andrew Ng)
-- 📜 **Generative AI Fundamentals** — *Google Cloud Skills Boost*
-
-<br>
-
-<img src="./hd-projects.svg?v=real-streak-12" width="620" alt="projects"/>
-
-**[JanSamvaad — ResolveOS](https://github.com/Harsh33t)** &nbsp;·&nbsp; <samp>python, gemini 2.5 flash, twilio, postgresql</samp><br>
-Voice-first municipal complaint system for India's 300M+ citizens (no internet required). Transcribes Hindi/English voice via Gemini 2.5 Flash, tracks SLAs, and generates ward heatmaps. **Ranked 39 / 26,000+ at India Innovates 2026.**
-
-**[PortAI — AI Financial Intelligence Platform](https://github.com/Harsh33t/PortAI)** &nbsp;·&nbsp; <samp>fastapi, next.js, multi-agent</samp><br>
-Full-stack AI financial platform with multi-agent Stratton Engine featuring 15+ investor personas (Buffett, Jhunjhunwala). Supports NSE/BSE, US equities, crypto, live USD/INR conversion & paper trading.
-
-**[OPTICAP — AI Assistive Wearable](https://github.com/Harsh33t/OPTICAP)** &nbsp;·&nbsp; <samp>python, yolov8, mediapipe, raspberry-pi</samp><br>
-Solar-assisted offline wearable cap for blind, deaf, and mute users. Uses YOLOv8-Nano for bone-conduction object narration, YAMNet for directional sound mapping, and MediaPipe for ISL gesture-to-speech.
-
-**[Fine-Tuning LLM using Quantum Computing](https://github.com/Harsh33t/Fine-Tuning-LLM-using-QUANTIZATION)** &nbsp;·&nbsp; <samp>pennylane, pytorch, qml</samp><br>
-Experimental framework integrating quantum computing principles into LLM fine-tuning workflows using PennyLane and PyTorch for hybrid classical-quantum ML.
-
-**[GeoMIND — Mineral Intelligence Detection](https://github.com/Harsh33t/GnoMIND)** &nbsp;·&nbsp; <samp>python, sentinel-2, random-forest, groq</samp><br>
-Satellite imagery application calculating spectral ratios for Iron Oxide & Clay Alteration with Random Forest ML classifier and Groq LLM report generation.
-
-**[StartUP-Jury — AI VC Evaluator](https://github.com/Harsh33t/StartUP-Jury)** &nbsp;·&nbsp; <samp>streamlit, groq api, multi-agent</samp><br>
-Multi-agent startup evaluator simulating a VC investment committee debate with 3 sequential AI agents (Optimist, Critic, Market Analyst) and downloadable PDF reports.
-
-<br>
-
-<img src="./hd-stats.svg?v=real-streak-12" width="620" alt="stats"/>
-
-<div align="center">
-
-<img src="./timeline.svg?v=real-streak-12" width="620" alt="30-day activity timeline"/>
-
-<br>
-
-<img src="./streak.svg?v=real-streak-12" width="620" alt="Current and longest streak"/>
-
-<br>
-
-<img src="./langs.svg?v=real-streak-12" width="620" alt="Top languages by bytes and by repo"/>
-
-<br>
-
-<img src="./year.svg?v=real-streak-12" width="620" alt="The last year, one character per day"/>
-
-</div>
+- **Machine Learning Specialization** — DeepLearning.AI and Coursera
+- **Generative AI Fundamentals** — Google Cloud Skills Boost
