@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 156" width="960" height="156" aria-hidden="true">
+  <defs>
+    <linearGradient id="background">
+      <stop stop-color="#10182c"/>
+      <stop offset="1" stop-color="#182746"/>
+    </linearGradient>
+    <linearGradient id="signal">
+      <stop stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#93c5fd"/>
+    </linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#a5b4fc" stroke-opacity=".12"/>
+    </pattern>
+    <style>
+      .pulse { animation: travel 7s linear infinite; }
+      .secondary { animation-delay: -3.5s; }
+      @keyframes travel { to { stroke-dashoffset: -100; } }
+      @media (prefers-reduced-motion: reduce) { .pulse { animation: none; } }
+    </style>
+  </defs>
+  <rect width="960" height="156" rx="18" fill="url(#background)"/>
+  <rect x="350" width="610" height="156" rx="18" fill="url(#grid)"/>
+  <g font-family="system-ui, sans-serif">
+    <text x="40" y="69" font-size="30" font-weight="700" fill="#f8fafc">Projects &amp; Open Source</text>
+    <text x="40" y="105" font-size="19" fill="#cbd5e1">Applied AI · Backend Engineering</text>
+  </g>
+  <g fill="none" stroke="url(#signal)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M394 78H475L519 42H624L670 78H920" stroke-opacity=".38" stroke-width="2"/>
+    <path d="M394 78H475L519 114H624L670 78H920" stroke-opacity=".38" stroke-width="2"/>
+    <path class="pulse" pathLength="100" d="M394 78H475L519 42H624L670 78H920" stroke-width="3" stroke-dasharray="9 91"/>
+    <path class="pulse secondary" pathLength="100" d="M394 78H475L519 114H624L670 78H920" stroke-width="3" stroke-dasharray="9 91"/>
+  </g>
+  <g fill="#10182c" stroke="#7dd3fc" stroke-width="2">
+    <circle cx="475" cy="78" r="5"/>
+    <circle cx="519" cy="42" r="5"/>
+    <circle cx="519" cy="114" r="5"/>
+    <circle cx="670" cy="78" r="5"/>
+    <circle cx="920" cy="78" r="5"/>
+  </g>
+</svg>
