@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./profile-signal.svg" width="960" alt="Projects and open source · Applied AI and backend engineering">
+</p>
+
 <h1 align="center">Harsheet Dwivedi</h1>
 
 <p align="center">
@@ -19,17 +23,20 @@
 
 ---
 
-I build Python applications that bring machine learning into products, from offline computer vision on Raspberry Pi to multi-agent systems backed by FastAPI. I’m looking for an **AI/ML internship** where I can work on applied ML and the backend that makes it usable.
+I build applied AI and backend projects, with a focus on monitoring multi-agent systems, forecasting from telemetry, and making test workflows reliable. I’m looking for an **AI/ML internship** where I can work on models and the systems that make them usable.
 
 > **Ranked 39th out of 26,000+ participants** at India Innovates 2026 with JanSamvaad, a voice-first municipal grievance platform.
 
 ## Featured projects
 
-| Project | What it does | Stack |
-| :--- | :--- | :--- |
-| **[JanSamvaad · ResolveOS](https://github.com/akshatg-721/JanSamvaad-ResolveOS)** | Lets residents file municipal complaints by phone in Hindi or English. The system classifies reports, tracks response deadlines, and maps complaints by ward. [Live demo](https://jan-samvaad-resolve-os.vercel.app) | Python, Gemini 2.5 Flash, Twilio, PostgreSQL |
-| **[OPTICAP](https://github.com/Harsh33t/OPTICAP)** | An offline assistive wearable that narrates objects through bone conduction, identifies the direction of sounds, and translates Indian Sign Language gestures into speech. | YOLOv8 Nano, YAMNet, MediaPipe, Raspberry Pi |
-| **[PortAI](https://github.com/Harsh33t/PortAI)** | A financial research and paper-trading platform that uses 15+ investor personas to analyze Indian and US equities and crypto. | FastAPI, Next.js, multi-agent LLMs |
+| Project | What it demonstrates |
+| :--- | :--- |
+| **[Sunniva Safeguard](https://github.com/Harsh33t/Sunniva-Safeguard)** | Defensive monitoring for multi-agent AI. Tracks messages and trust scores, visualizes agent communication, and isolates suspicious links. |
+| **[Sunniva Dynamics](https://github.com/Harsh33t/Sunniva-anti-ddos)** | An offline research prototype that uses recent network activity to forecast risk and shows the evidence behind each warning in a replay dashboard. |
+| **[Environment Readiness Orchestrator](https://github.com/Harsh33t/Enviornment-readiness-Orchestrator-)** | A cloud testing prototype with mock preflight checks, operator-approved setup, isolated test runs, and bounded cleanup retries. |
+| **[Louigee Kart](https://github.com/Harsh33t/Louigee-KART)** | A 3D browser racer with procedural visuals, AI opponents, arcade drifting, and per-mode time records. [Play the demo](https://louigee-kart.vercel.app/) |
+
+[Browse all public repositories](https://github.com/Harsh33t?tab=repositories)
 
 ## Open source
 
